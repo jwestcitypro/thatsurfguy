@@ -668,6 +668,7 @@ footer {
       });
       if (res.ok) {
         document.getElementById('successMsg').classList.add('visible');
+        setTimeout(() => { window.location.reload(); }, 3000);
       } else {
         this.style.opacity = '';
         this.style.pointerEvents = '';
