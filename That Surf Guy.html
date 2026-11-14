@@ -1,0 +1,702 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>That Surf Guy</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500;600&display=swap">
+<style>
+:root {
+  --white:   #FFFFFF;
+  --off:     #F5F4F1;
+  --ink:     #111111;
+  --ink-mid: #555555;
+  --ink-lt:  #999999;
+  --rule:    #E0DFDB;
+  --blue:    #1A6FBF;
+  --cl-bg:   #0C0C0C;
+  --cl-red:  #C41A14;
+  --cl-fire: #E05A14;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* PAGE SYSTEM */
+.page {
+  display: none;
+  min-height: 100svh;
+  flex-direction: column;
+}
+.page.active {
+  display: flex;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: max(18px, env(safe-area-inset-top, 0px)) max(28px, env(safe-area-inset-right, 0px)) 18px max(28px, env(safe-area-inset-left, 0px));
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+}
+nav.dark {
+  background: var(--cl-bg);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+nav.dark .nav-logo { color: #fff; }
+.nav-back {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--ink); }
+nav.dark .nav-back { color: rgba(255,255,255,0.4); }
+nav.dark .nav-back:hover { color: #fff; }
+
+/* BUTTONS */
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 13px 26px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.15s, transform 0.12s;
+  white-space: nowrap;
+}
+.btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn-dark { background: var(--ink); color: var(--white); }
+.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+.btn-ghost:hover { border-color: var(--ink); opacity: 1; }
+.btn-red { background: var(--cl-red); color: #fff; }
+.btn-red:hover { background: #D42018; opacity: 1; }
+
+/* =====================
+   HOME PAGE
+   ===================== */
+#page-home {
+  background: var(--white);
+  position: relative;
+}
+#page-home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/_blob/26b24c87f4870129e58ecb1dffca5fec');
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+  z-index: 0;
+}
+#page-home > * { position: relative; z-index: 1; }
+.home-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 60px max(28px, env(safe-area-inset-left, 0px));
+  padding-right: max(28px, env(safe-area-inset-right, 0px));
+}
+.home-h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(4.5rem, 13vw, 10.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+.home-h1 .stroke {
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+}
+.home-h1 .blue { color: var(--blue); -webkit-text-stroke: 0; }
+.home-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-top: 28px;
+  margin-top: auto;
+}
+.home-desc {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.65;
+  max-width: 520px;
+}
+.home-desc strong {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.home-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.location-strip {
+  background: var(--ink);
+  padding: 28px max(28px, env(safe-area-inset-left, 0px));
+  padding-right: max(28px, env(safe-area-inset-right, 0px));
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+.location-strip span {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  white-space: nowrap;
+}
+.location-strip .dot { color: rgba(255,255,255,0.3); font-size: 1rem; line-height: 1; }
+
+/* =====================
+   REQUEST PAGE
+   ===================== */
+#page-request {
+  background: var(--white);
+}
+.request-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  padding: 60px max(28px, env(safe-area-inset-left, 0px));
+  padding-right: max(28px, env(safe-area-inset-right, 0px));
+}
+.request-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/_blob/507a60bbe2d206d6353d6c6e651e7264');
+  background-size: cover;
+  background-position: center 35%;
+  pointer-events: none;
+}
+@media (max-width: 700px) {
+  .request-content::before { background-position: 60% 35%; }
+}
+.request-content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.82);
+  pointer-events: none;
+}
+.request-content > * { position: relative; z-index: 1; }
+.request-layout {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 700px) {
+  .request-layout { grid-template-columns: 1fr; gap: 40px; }
+}
+.request-aside h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #111;
+  margin-bottom: 16px;
+}
+.request-aside p {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #111;
+  line-height: 1.7;
+}
+.request-aside .aside-note {
+  margin-top: 32px;
+  padding: 16px 18px;
+  background: rgba(0,0,0,0.06);
+  border-left: 3px solid #111;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+form { display: flex; flex-direction: column; gap: 0; }
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+}
+@media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
+.field {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1.5px solid rgba(0,0,0,0.3);
+  padding-block: 18px;
+  transition: border-color 0.15s;
+}
+.field:focus-within { border-color: #111; }
+.field.error { border-color: var(--cl-red); }
+.field label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 6px;
+}
+.field input,
+.field select,
+.field textarea {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  -webkit-appearance: none;
+  line-height: 1.5;
+}
+.field select { cursor: pointer; }
+.field select.empty { color: var(--ink-mid); font-weight: 300; }
+.field input::placeholder,
+.field textarea::placeholder { color: var(--ink-mid); font-weight: 300; }
+.field select option { background: var(--white); color: var(--ink); }
+.field textarea { min-height: 80px; resize: none; }
+.form-submit {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.form-note { font-size: 0.8rem; font-weight: 500; color: #111; }
+.success-msg {
+  display: none;
+  font-size: 0.88rem;
+  color: var(--blue);
+  margin-top: 20px;
+  padding: 16px 0;
+  border-top: 1px solid var(--rule);
+  line-height: 1.6;
+}
+.success-msg.visible { display: block; }
+
+/* =====================
+   CORE LORD PAGE
+   ===================== */
+#page-corelord {
+  background: var(--cl-bg);
+}
+.cl-page-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  padding: 60px max(28px, env(safe-area-inset-left, 0px));
+  padding-right: max(28px, env(safe-area-inset-right, 0px));
+}
+.cl-photo {
+  position: absolute;
+  inset: 0;
+  background-image: url('/_blob/b6ab9c290b773f554831af13f2404cb1');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 70% 15%;
+  filter: grayscale(100%);
+  opacity: 0.55;
+}
+@media (max-width: 700px) {
+  .cl-photo { background-position: 65% top; }
+}
+.cl-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(12,12,12,0.85) 0%,
+    rgba(12,12,12,0.60) 50%,
+    rgba(12,12,12,0.80) 100%
+  );
+}
+.cl-inner {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 700px) { .cl-inner { grid-template-columns: 1fr; gap: 48px; } }
+.cl-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(4rem, 10vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin-bottom: 32px;
+}
+.cl-title .cl-outline {
+  -webkit-text-stroke: 2px var(--cl-red);
+  color: transparent;
+}
+.cl-body {
+  font-size: 0.93rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.75;
+  margin-bottom: 36px;
+  max-width: 400px;
+}
+.cl-right { padding-top: 8px; }
+.cl-occasions-title {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 20px;
+}
+.cl-occasions {
+  list-style: none;
+  margin-bottom: 48px;
+}
+.cl-occasions li {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.7);
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cl-occasions li:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+.cl-arrow {
+  color: var(--cl-fire);
+  font-size: 0.9rem;
+  opacity: 0.6;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.cl-arrow:hover { opacity: 1; }
+
+/* FOOTER */
+footer {
+  background: var(--cl-bg);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 28px max(28px, env(safe-area-inset-left, 0px));
+  padding-right: max(28px, env(safe-area-inset-right, 0px));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+.footer-loc { font-size: 0.75rem; color: rgba(255,255,255,0.2); letter-spacing: 0.08em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HOME ==================== -->
+<div id="page-home" class="page active">
+  <nav>
+    <span class="nav-logo" onclick="showPage('home')">ThatSurfGuy</span>
+  </nav>
+  <div class="home-body">
+    <h1 class="home-h1">
+      That<br>
+      <span class="stroke">Surf</span><br>
+      <span class="blue">Guy</span>
+    </h1>
+    <div class="home-foot">
+      <p class="home-desc"><strong>All Things That Surf Guy.</strong>Book an exclusive surf lesson, shop merchandise, or get a personalized video from the one and only Core Lord.</p>
+      <div class="home-actions">
+        <button class="btn btn-dark" onclick="showPage('request')">Request a Surf Lesson</button>
+        <a href="https://shopthatsurfguy.com/" target="_blank" rel="noopener noreferrer" class="btn btn-dark">Shop ThatSurfGuy Merch</a>
+        <a href="https://www.cameo.com/thatsurfguy?aaQueryId=48f4473d35ff0e08c0026d6a6943e9ba" target="_blank" rel="noopener noreferrer" class="btn btn-dark">Receive a Video from Core Lord</a>
+      </div>
+    </div>
+  </div>
+  <div class="location-strip">
+    <span>San Diego</span>
+    <span class="dot">·</span>
+    <span>Orange County</span>
+    <span class="dot">·</span>
+    <span>Los Angeles</span>
+  </div>
+</div>
+
+<!-- ==================== REQUEST ==================== -->
+<div id="page-request" class="page">
+  <nav>
+    <span class="nav-logo" onclick="showPage('home')">ThatSurfGuy</span>
+    <span class="nav-back" onclick="showPage('home')">← Back</span>
+  </nav>
+  <div class="request-content">
+    <div class="request-layout">
+      <aside class="request-aside">
+        <h2>Request a Surf Lesson</h2>
+        <p>Fill this out and we'll get back to you within 24 hours to lock in the details.</p>
+        <div class="aside-note">
+          <ul style="list-style: disc; padding-left: 18px; display: flex; flex-direction: column; gap: 6px;">
+            <li>All skill levels welcome.</li>
+            <li>Must bring board &amp; wetsuit.</li>
+            <li>Must be based in San Diego, LA, or Orange County.</li>
+          </ul>
+        </div>
+      </aside>
+      <div>
+        <form id="requestForm" action="https://formspree.io/f/mrpqeyej" method="POST" novalidate>
+          <div class="field-row">
+            <div class="field" id="f-fname">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="fname" placeholder="Alex" required>
+            </div>
+            <div class="field" id="f-lname">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname" placeholder="Rivera" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" id="f-email">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="alex@example.com" required>
+            </div>
+            <div class="field" id="f-phone">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="(619) 555-0100" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" id="f-social">
+              <label for="social">Social Handle</label>
+              <input type="text" id="social" name="social" placeholder="@handle" required>
+            </div>
+            <div class="field" id="f-county">
+              <label for="county">County</label>
+              <select id="county" name="county" required>
+                <option value="">Select...</option>
+                <option>San Diego</option>
+                <option>Orange</option>
+                <option>Los Angeles</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" id="f-experience">
+              <label for="experience">Experience Level</label>
+              <select id="experience" name="experience" required>
+                <option value="">Select...</option>
+                <option>Never been on a board</option>
+                <option>Been out a few times</option>
+                <option>Can catch waves</option>
+                <option>Intermediate — working on turns</option>
+                <option>Advanced</option>
+              </select>
+            </div>
+            <div class="field" id="f-people">
+              <label for="people">Number of People</label>
+              <input type="number" id="people" name="people" placeholder="1" min="1" max="4" required>
+            </div>
+          </div>
+          <div class="field" id="f-dates">
+            <label for="dates">Preferred Dates</label>
+            <input type="text" id="dates" name="dates" placeholder="Weekends in March, flexible, etc." required>
+          </div>
+          <div class="field" id="f-message">
+            <label for="message">Anything else?</label>
+            <textarea id="message" name="message" placeholder="Questions, special requests..." required></textarea>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn-dark">Send Request</button>
+            <span class="form-note">We'll reply within 24 – 48 hours.</span>
+          </div>
+        </form>
+        <div class="success-msg" id="successMsg" role="alert">
+          Request received — thanks. We'll follow up within 24 hours to confirm your session details.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CORE LORD ==================== -->
+<div id="page-corelord" class="page">
+  <nav class="dark">
+    <span class="nav-logo" onclick="showPage('home')">ThatSurfGuy</span>
+    <span class="nav-back" onclick="showPage('home')">← Back</span>
+  </nav>
+  <div class="cl-page-body">
+    <div class="cl-photo" aria-hidden="true"></div>
+    <div class="cl-inner">
+      <div class="cl-left">
+        <h2 class="cl-title">
+          Core <span class="cl-outline">Lord</span>
+        </h2>
+        <p class="cl-body">Hey bud, time to head home. Book a personalized video message from the one and only Core Lord.</p>
+        <a href="https://www.cameo.com/thatsurfguy?aaQueryId=48f4473d35ff0e08c0026d6a6943e9ba" target="_blank" rel="noopener noreferrer" class="btn btn-red">Book on Cameo</a>
+      </div>
+      <div class="cl-right">
+        <p class="cl-occasions-title">Available For</p>
+        <ul class="cl-occasions">
+          <li>Birthdays &amp; Milestones <a href="https://www.cameo.com/thatsurfguy?aaQueryId=48f4473d35ff0e08c0026d6a6943e9ba" target="_blank" rel="noopener noreferrer" class="cl-arrow">→</a></li>
+          <li>Engagements &amp; Anniversaries <a href="https://www.cameo.com/thatsurfguy?aaQueryId=48f4473d35ff0e08c0026d6a6943e9ba" target="_blank" rel="noopener noreferrer" class="cl-arrow">→</a></li>
+          <li>Pep Talks &amp; Motivation <a href="https://www.cameo.com/thatsurfguy?aaQueryId=48f4473d35ff0e08c0026d6a6943e9ba" target="_blank" rel="noopener noreferrer" class="cl-arrow">→</a></li>
+          <li>Roasts &amp; Celebrations <a href="https://www.cameo.com/thatsurfguy?aaQueryId=48f4473d35ff0e08c0026d6a6943e9ba" target="_blank" rel="noopener noreferrer" class="cl-arrow">→</a></li>
+          <li>Regulation Videos <a href="https://www.cameo.com/thatsurfguy?aaQueryId=48f4473d35ff0e08c0026d6a6943e9ba" target="_blank" rel="noopener noreferrer" class="cl-arrow">→</a></li>
+          <li>Miscellaneous Stoke <a href="https://www.cameo.com/thatsurfguy?aaQueryId=48f4473d35ff0e08c0026d6a6943e9ba" target="_blank" rel="noopener noreferrer" class="cl-arrow">→</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-name">ThatSurfGuy</div>
+    <div class="footer-loc">San Diego · Orange County · Los Angeles</div>
+  </footer>
+</div>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    window.scrollTo(0, 0);
+    window.location.hash = name === 'home' ? '' : name;
+  }
+
+  // Handle direct hash links
+  function handleHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'request' || hash === 'corelord') {
+      showPage(hash);
+    } else {
+      showPage('home');
+    }
+  }
+  window.addEventListener('hashchange', handleHash);
+  handleHash();
+
+  // Form submission
+  document.getElementById('requestForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const fields = this.querySelectorAll('[required]');
+    let firstErr = null;
+    fields.forEach(el => {
+      const wrap = el.closest('.field');
+      if (!el.value.trim()) {
+        wrap && wrap.classList.add('error');
+        firstErr = firstErr || el;
+      } else {
+        wrap && wrap.classList.remove('error');
+      }
+    });
+    if (firstErr) { firstErr.focus(); return; }
+    this.style.opacity = '0.35';
+    this.style.pointerEvents = 'none';
+    try {
+      const res = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('successMsg').classList.add('visible');
+      } else {
+        this.style.opacity = '';
+        this.style.pointerEvents = '';
+        alert('Something went wrong. Please try again.');
+      }
+    } catch {
+      this.style.opacity = '';
+      this.style.pointerEvents = '';
+      alert('Something went wrong. Please try again.');
+    }
+  });
+
+  document.querySelectorAll('.field input, .field select, .field textarea').forEach(el => {
+    el.addEventListener('input', () => {
+      el.closest('.field')?.classList.remove('error');
+    });
+  });
+
+  // Match select placeholder color to other inputs
+  document.querySelectorAll('.field select').forEach(sel => {
+    const update = () => sel.classList.toggle('empty', !sel.value);
+    update();
+    sel.addEventListener('change', update);
+  });
+</script>
+
+</body>
+</html>
+
+</body></html>
