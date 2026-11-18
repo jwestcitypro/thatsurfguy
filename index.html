@@ -197,6 +197,15 @@ nav.dark .nav-back:hover { color: #fff; }
   color: rgba(255,255,255,0.75);
   white-space: nowrap;
 }
+@media (max-width: 700px) {
+  .location-strip {
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    padding: 20px max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .location-strip span { font-size: 0.85rem; }
+}
 .location-strip .dot { color: rgba(255,255,255,0.3); font-size: 1rem; line-height: 1; }
 
 /* =====================
@@ -504,7 +513,7 @@ footer {
     <div class="request-layout">
       <aside class="request-aside">
         <h2>Request a Surf Lesson</h2>
-        <p>Fill this out and we'll get back to you within 24 hours to lock in the details.</p>
+        <p>Fill this out and we'll get back to you within 24 – 48 hours to lock in the details.</p>
         <div class="aside-note">
           <ul style="list-style: disc; padding-left: 18px; display: flex; flex-direction: column; gap: 6px;">
             <li>All skill levels welcome.</li>
